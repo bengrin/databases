@@ -5,26 +5,18 @@ USE chat;
 
 CREATE TABLE messages (
 
-  message_id INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (message_id),
   text VARCHAR(140) NOT NULL,
-  roomname_id INT NOT NULL,
-  name_id INT NOT NULL
+  roomname VARCHAR(140) NOT NULL,
+  user_id INT NOT NULL,
+  message_id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (message_id)
 
 );
 
 CREATE TABLE users (
-
+  username VARCHAR(40) NOT NULL,
   user_id INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (user_id),
-  name VARCHAR(40) NOT NULL
+  PRIMARY KEY (user_id)
 );
 
-CREATE TABLE rooms (
-  room_id INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (room_id),
-  roomname VARCHAR(20) NOT NULL
-);
-
-
-
+ALTER TABLE messages ADD FOREIGN KEY (user_id) REFERENCES users (user_id);
