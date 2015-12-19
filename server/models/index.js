@@ -3,41 +3,38 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (cb) {
-      var querySearch = 'select * from messages;';
-      db.query(querySearch, function(err,results){
+      db.query('SELECT * FROM messages', function(err,data){
         if(err) throw err;
-        else cb(results)
+        else cb(data)
+        console.log('returning data test ',data)
       })
-    }, // a function which produces all the messages
+    },
     post: function (data,cb) {
-      console.log('model-messages.post')
-      var querySearch = 'insert into messages set ?';
-      db.query(querySearch, data, function(err, results){
+      //console.log('posting data', data)
+      var query = db.query('INSERT INTO messages SET ?', data, function(err,result){
         if(err) throw err;
-        else cb(results)
+        else cb(result)
       })
+      //console.log('query sql' + query.sql)
     } // a function which can be used to insert a message into the database
   },
 
   users: {
     // Ditto as above.
     get: function (cb) {
-      var querySearch = 'SELECT * from users;';
-      db.query(querySearch, function(err,results){
-        if(err) throw err;
-        else cb(results)
+      var querySearch = 'SELECT * FROM users;';
+      db.query(querySearch, function(err,data){
+        if(err) console.log(err);
+        else cb(data)
       })
     },
-    post: function (value,cb) {
-      var queryInsert = 'INSERT INTO users set ?';
-      db.query(queryInsert, data, function(err,results){
-        if(err) throw err;
+    post: function (data, cb) {
+      //console.log('posting data', data)
+      var queryInsert = 'INSERT INTO users SET ?';
+      db.query(queryInsert, data, function(err, results){
+        if(err) console.log(err);
         else cb(results)
       })
     }
   }
 };
-//
-//'isnert data.text
-//insert(sleet user id form users where username = ' + data.username ")
-//insert( select roomid from rooms where roomnae = " +data.roomnaem''

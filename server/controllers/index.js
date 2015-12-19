@@ -11,8 +11,11 @@ module.exports = {
       })
     }, // a function which handles a get request for all messages
     post: function (req, res) {
+
+      req.body.createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ')
+
       models.messages.post(req.body, function(results){
-        req.body.created = new Date().toISOString().slice(0, 19).replace('T', '');
+
         res.json(results);
       })
     } // a function which handles posting a message to the database
@@ -27,7 +30,6 @@ module.exports = {
     },
     post: function (req, res) {
       models.users.post(req.body, function(results){
-        req.body.createdAt = new Date.toISOString().slice(0, 19).replace('T', '');
         res.json(results);
       })
     }
