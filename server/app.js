@@ -1,9 +1,18 @@
 var express = require('express');
 var db = require('./db');
+db.connect(function(err){
+  if (err) {
+    throw err;
+  }
+  else {
+    console.log("connection successful!")
+  }
+});
 
 // Middleware
 var morgan = require('morgan');
 var parser = require('body-parser');
+
 
 // Router
 var router = require('./routes.js');
@@ -11,6 +20,7 @@ var router = require('./routes.js');
 var app = express();
 module.exports.app = app;
 
+app.use(parser.urlencoded({extended: false}));
 // Set what we are listening on.
 app.set("port", 3000);
 

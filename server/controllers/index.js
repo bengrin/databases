@@ -11,10 +11,9 @@ module.exports = {
       })
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      models.messages.post(function(results){
-        console.log('controller.post')
-        console.log(JSON.parse(req.body))
-        res.send(results);
+      models.messages.post(req.body, function(results){
+        req.body.created = new Date().toISOString().slice(0, 19).replace('T', '');
+        res.json(results);
       })
     } // a function which handles posting a message to the database
   },
@@ -22,9 +21,16 @@ module.exports = {
   users: {
     // Ditto as above
     get: function (req, res) {
-
+      models.users.get(function(results){
+        res.json(results);
+      })
     },
-    post: function (req, res) {}
+    post: function (req, res) {
+      models.users.post(req.body, function(results){
+        req.body.createdAt = new Date.toISOString().slice(0, 19).replace('T', '');
+        res.json(results);
+      })
+    }
   }
 };
 

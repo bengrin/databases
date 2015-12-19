@@ -11,6 +11,6 @@ var db = mysql.createConnection({
       user: "root",
       database: "chat"
 });
-db.connect();
+
 
 module.exports = db;
